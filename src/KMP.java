@@ -2,9 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class KMP {
-    static String[] args = new String[] { "../data/war_and_peace.txt", "astronomy" };
+    // static String[] args = new String[] { "../data/war_and_peace.txt", "astronomy" };
 
-    public static void main(String[] arg) {
+    public static void main(String[] args) {
         if (args.length != 2) {
             System.out.println(
                     "Please call this program with " + "two arguments which is the input file name "
