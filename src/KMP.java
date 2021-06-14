@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class KMP {
-    // static String[] args = new String[] { "../data/war_and_peace.txt", "astronomy" };
+    // static String[] args = new String[] { "./data/war_and_peace.txt", "astronomy" };
 
     public static void main(String[] args) {
         if (args.length != 2) {
