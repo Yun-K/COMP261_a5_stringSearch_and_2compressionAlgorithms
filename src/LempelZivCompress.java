@@ -2,11 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class LempelZivCompress {
-    static String[] args = new String[] { "./data/p3Comp.txt" };
+    // static String[] args = new String[] { "./data/p3Comp.txt" };
 
-    static List<TuplePart3> tupleList = new ArrayList<TuplePart3>();
-
-    public static void main(String[] arg) {
+    public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println(
                     "Please call this program with one argument which is the input file name.");
@@ -61,13 +59,11 @@ public class LempelZivCompress {
                     // the offset is the count of prevMatch
                     // like 123ed_text,the offset for e is 4
                     int offset = prevMatch < 0 ? 0 : subText.length() - prevMatch;
-                    char symbol = input.charAt(cursor + length);
+                    char symbol = input.charAt(cursor + length - 1);
                     TuplePart3 tuple = new TuplePart3(offset, length - 1, symbol);
-                    tupleList.add(tuple);
-
                     compressedOutput.append(tuple.toString());
 
-                    cursor = cursor + length + 1;
+                    cursor = cursor + length;// + 1;
 
                     break;
                 }

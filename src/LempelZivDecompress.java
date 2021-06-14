@@ -2,9 +2,10 @@ import java.util.*;
 import java.io.*;
 
 public class LempelZivDecompress {
-    static String[] args = new String[] { "./data/p3De.txt" };
+    // static String[] args = new String[] { "./data/p3De.txt" };
+    // static String[] args = new String[] { "./data/p3C_out.txt" };
 
-    public static void main(String[] arg) {
+    public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println(
                     "Please call this program with one argument which is the input file name.");
@@ -72,6 +73,7 @@ public class LempelZivDecompress {
         char start = '[', delimt = ',', end = ']';
         TuplePart3 tuple = new TuplePart3();
         int index = 0;
+        int coount = 0;
         String[] tempString = new String[] { "", "", "" };// string for storing
                                                           // offset,length,symbol
         for (char c : compressedString.toCharArray()) {
@@ -82,6 +84,9 @@ public class LempelZivDecompress {
                 tuple.setLength(Integer.parseInt(tempString[1]));
                 tuple.setSymbol(tempString[2].charAt(0));
                 tupleList.add(tuple);
+                // if (index < 2) {
+                // System.err.println("invalid Tuple object");
+                // }
                 index = 0;// reset the index
                 tempString = new String[] { "", "", "" };// string for storing
                                                          // offset,length,symbol
