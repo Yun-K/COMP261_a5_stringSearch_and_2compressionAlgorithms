@@ -18,10 +18,12 @@ public class TuplePart3 {
      */
 
     public TuplePart3(int offset, int length, char symbol) {
-        super();
         this.offset = offset;
         this.length = length;
         this.symbol = symbol;
+    }
+
+    public TuplePart3() {
     }
 
     @Override
@@ -72,7 +74,7 @@ public class TuplePart3 {
      *
      * @return the symbol
      */
-    public char getSymbol() {
+    public Character getSymbol() {
         return symbol;
     }
 
