@@ -38,14 +38,11 @@ public class KMP {
 
         int k = 0;// start of current match in text t
         int i = 0;// pos of current char in pattern
-        // long startTime = System.currentTimeMillis();
         while (k + i < text.length()) {
             // match at i
             if (pattern.charAt(i) == text.charAt(i + k)) {
                 // check if i reaches the end of the searching pattern
                 if (++i == pattern.length()) {
-                    // System.out.println("KMP runs:" + (System.currentTimeMillis() -
-                    // startTime));
                     return k;// find pattern, return it
                 }
             }

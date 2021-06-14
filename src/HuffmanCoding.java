@@ -7,9 +7,9 @@ import java.io.*;
  * store this tree in a field and then use it in the encode and decode methods.
  */
 public class HuffmanCoding {
-    static String[] args = new String[] { "./data/test1.txt", "0" };
+    // static String[] args = new String[] { "./data/test1.txt", "2" };
 
-    public static void main(String[] arg) {
+    public static void main(String[] args) {
         if (args.length != 2) {
             System.out.println("Please call this program with two arguments, which are " +
                                "the input file name and either 0 for constructing tree and printing it, or "
@@ -53,6 +53,8 @@ public class HuffmanCoding {
     private static Map<Character, String> tree; // Change type from Object to HuffmanTree or
                                                 // appropriate type you design.
 
+    static NodeHuffman ROOT;
+
     /**
      * This would be a good place to compute and store the tree.
      */
@@ -82,24 +84,23 @@ public class HuffmanCoding {
             priorityQueue.offer(parentNodeHuffman);
         }
         // final node left in the queue is the root node
-        NodeHuffman root = priorityQueue.peek();
+        NodeHuffman root = priorityQueue.poll();
+        HuffmanCoding.ROOT = root;
 
         // Traverse this tree to assign codes:
         // if node has code c, assign c0 to left child, c1 to right child
-
         Map<Character, String> letter_code_map = new HashMap<Character, String>();
         assignCodes(root, letter_code_map);
         assert letter_code_map.isEmpty() == false;
-        letter_code_map.forEach((key, value) -> {
-            System.out.print(key + ":" + value + ",");
-        });
-        System.out.println();
-
         tree = letter_code_map;
+
+        // letter_code_map.forEach((key, value) -> {
+        // System.out.print(key + ":" + value + ",");
+        // });
+        // System.out.println();
+
         return letter_code_map;
     }
-
-    // static Map<Character, String> letter_code_map = new HashMap<Character, String>();
 
     public static void assignCodes(NodeHuffman node, Map<Character, String> letter_code_map) {
         // check if it is the leaf node
@@ -136,11 +137,9 @@ public class HuffmanCoding {
     public static String encode(String text) {
         // TODO fill this in.
         StringBuilder encodeBinText = new StringBuilder();
-        for (int i = 0; i < text.length(); i++) {
-            Character character = text.charAt(i);
+        for (char character : text.toCharArray()) {
             encodeBinText.append(tree.get(character));
         }
-
         return encodeBinText.toString();
     }
 
@@ -151,9 +150,19 @@ public class HuffmanCoding {
     public static String decode(String encoded) {
         // TODO fill this in.
         StringBuilder decodeText = new StringBuilder();
+        NodeHuffman pointerNode = HuffmanCoding.ROOT;// point to the specificied pos in tree
+
         for (int i = 0; i < encoded.length(); i++) {
-            Character character = encoded.charAt(i);
-            decodeText.append(tree.get(character));
+            char character = encoded.charAt(i);
+            // assign the pointer
+            pointerNode = character == '0' ? pointerNode.getLeftChild()
+                    : pointerNode.getRightChild();
+
+            // reach the leaf Node, so reset the Pointer to the root and assign it
+            if (pointerNode.getLeftChild() == null && pointerNode.getRightChild() == null) {
+                decodeText.append(pointerNode.char_value);
+                pointerNode = HuffmanCoding.ROOT;
+            }
         }
 
         return decodeText.toString();
